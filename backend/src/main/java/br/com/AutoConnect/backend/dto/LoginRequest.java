@@ -1,0 +1,8 @@
+package br.com.AutoConnect.backend.dto;
+
+import jakarta.validation.constraints.NotBlank;
+
+public record LoginRequest(
+        @NotBlank String email,
+        @NotBlank String senha) {
+}
