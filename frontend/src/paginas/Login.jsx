@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Typography, TextField, Button, Alert } from '@mui/material';
 import Logo from '../componentes/Logo';
+import api from '../servicos/api';
 
 
 const fundoDiagonal = `linear-gradient(45deg,
@@ -34,18 +35,6 @@ const estiloRotulo = {
   textTransform: 'uppercase',
 };
 
-// MOCK: simula a resposta do servidor. Depois trocamos por uma chamada real.
-function loginMock(email, senha) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (email === 'cliente@teste.com' && senha === '123456') {
-        resolve({ token: 'token-falso', perfil: 'CLIENTE' });
-      } else {
-        reject({ status: 401 });
-      }
-    }, 800);
-  });
-}
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -63,20 +52,29 @@ export default function Login() {
   }
 
   async function enviar(evento) {
-    evento.preventDefault();
-    setErroGeral('');
-    if (!validar()) return;
+  evento.preventDefault();
+  setErroGeral('');
+  if (!validar()) return;
 
-    setCarregando(true);
-    try {
-      const resposta = await loginMock(email, senha);
-      alert(`Login feito! Perfil: ${resposta.perfil}`);
-    } catch {
+  setCarregando(true);
+  try {
+    const resposta = await api.post('/api/auth/login', { email, senha });
+    const { token, nome, perfil } = resposta.data;
+    localStorage.setItem('token', token);
+    localStorage.setItem('usuario', JSON.stringify({ nome, perfil }));
+    alert(`Bem-vindo, ${nome}! Perfil: ${perfil}`); // depois vira redirecionamento
+  } catch (erro) {
+    if (erro.response?.status === 401) {
       setErroGeral('E-mail ou senha inválidos');
-    } finally {
-      setCarregando(false);
+    } else if (!erro.response) {
+      setErroGeral('Não foi possível conectar ao servidor');
+    } else {
+      setErroGeral('Erro inesperado. Tente novamente');
     }
+  } finally {
+    setCarregando(false);
   }
+}
 
   return (
     <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center',
