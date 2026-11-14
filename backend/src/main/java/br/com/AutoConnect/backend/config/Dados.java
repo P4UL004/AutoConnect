@@ -25,6 +25,8 @@ public class Dados {
                     "tecnico@autoconnect.com", "tecnico123", Perfil.CONSULTOR_TECNICO);
             criarSeNaoExistir(repository, encoder, "Cliente Teste",
                     "cliente@autoconnect.com", "cliente123", Perfil.CLIENTE);
+            criarSeNaoExistir(repository, encoder, "Cliente Teste 2",
+                    "cliente2@autoconnect.com", "cliente123", Perfil.CLIENTE);
         };
     }
 
