@@ -1,63 +1,192 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { obterSessao } from './servicos/api';
+import { perfilTemAcessoRota } from './atalhos';
 import Login from './paginas/Login';
 import Home from './paginas/Home';
+import CadastroCliente from './paginas/CadastroCliente';
 import PaginaInventario from './paginas/inventario/PaginaInventario';
 import PaginaTestDrive from './paginas/testdrive/PaginaTestDrive';
-import { obterSessao, limparSessao } from './servicos/api';
+import PaginaOrdensServico from './paginas/ordemservico/PaginaOrdensServico';
+import PrototipoGeofencing from './paginas/prototipos/PrototipoGeofencing';
+import PrototipoCredito from './paginas/prototipos/PrototipoCredito';
+import PrototipoDiagnostico from './paginas/prototipos/PrototipoDiagnostico';
+import PrototipoOrcamentoRemoto from './paginas/prototipos/PrototipoOrcamentoRemoto';
+import PrototipoEstoque from './paginas/prototipos/PrototipoEstoque';
+import PrototipoHoras from './paginas/prototipos/PrototipoHoras';
+import PrototipoPainelBI from './paginas/prototipos/PrototipoPainelBI';
 
-export default function App() {
+function RotaProtegida({ sessao, children }) {
+  const location = useLocation();
+  const sessaoAtual = sessao || obterSessao();
+
+  if (!sessaoAtual?.token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!perfilTemAcessoRota(sessaoAtual.perfil, location.pathname)) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+}
+
+function RotasAplicacao() {
+  const navigate = useNavigate();
   const [sessao, setSessao] = useState(() => obterSessao());
-  const [telaAtual, setTelaAtual] = useState(null);
 
   useEffect(() => {
-    function tratarDeslogar() {
+    function sincronizarSessao() {
+      setSessao(obterSessao());
+    }
+
+    function aoDeslogar() {
       setSessao(null);
-      setTelaAtual(null);
+      navigate('/login', { replace: true });
     }
 
-    window.addEventListener('autoconnect:deslogar', tratarDeslogar);
+    window.addEventListener('storage', sincronizarSessao);
+    window.addEventListener('autoconnect:deslogar', aoDeslogar);
+
     return () => {
-      window.removeEventListener('autoconnect:deslogar', tratarDeslogar);
+      window.removeEventListener('storage', sincronizarSessao);
+      window.removeEventListener('autoconnect:deslogar', aoDeslogar);
     };
-  }, []);
+  }, [navigate]);
 
-  function handleLogout() {
-    limparSessao();
-    setSessao(null);
-    setTelaAtual(null);
+  const voltarParaHome = () => navigate('/');
+
+  function aoAutenticar(novaSessao) {
+    setSessao(novaSessao || obterSessao());
+    navigate('/', { replace: true });
   }
 
-  function handleLoginSucesso(dados) {
-    setSessao(dados);
-  }
-
-  if (sessao) {
-    if (telaAtual === 'inventario') {
-      return (
-        <PaginaInventario
-          sessao={sessao}
-          onVoltar={() => setTelaAtual(null)}
-        />
-      );
-    }
-
-    if (telaAtual === 'test-drive') {
-      return (
-        <PaginaTestDrive
-          sessao={sessao}
-          onVoltar={() => setTelaAtual(null)}
-        />
-      );
-    }
-
-    return (
-      <Home
-        sessao={sessao}
-        onLogout={handleLogout}
-        onAbrirTela={(id) => setTelaAtual(id)}
+  return (
+    <Routes>
+      <Route
+        path="/login"
+        element={
+          sessao?.token ? (
+            <Navigate to="/" replace />
+          ) : (
+            <Login onLoginSucesso={aoAutenticar} />
+          )
+        }
       />
-    );
-  }
 
-  return <Login onLoginSucesso={handleLoginSucesso} />;
+      <Route
+        path="/cadastro"
+        element={sessao?.token ? <Navigate to="/" replace /> : <CadastroCliente />}
+      />
+
+      <Route
+        path="/"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <Home sessao={sessao} onDeslogar={() => setSessao(null)} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/inventario"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PaginaInventario sessao={sessao} onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/test-drive"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PaginaTestDrive sessao={sessao} onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/ordens-servico"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PaginaOrdensServico sessao={sessao} onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/prototipos/geofencing"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PrototipoGeofencing onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/prototipos/credito"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PrototipoCredito onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/prototipos/diagnostico"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PrototipoDiagnostico onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/prototipos/orcamento-remoto"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PrototipoOrcamentoRemoto onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/prototipos/estoque"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PrototipoEstoque onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/prototipos/horas"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PrototipoHoras onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route
+        path="/prototipos/painel-bi"
+        element={
+          <RotaProtegida sessao={sessao}>
+            <PrototipoPainelBI onVoltar={voltarParaHome} />
+          </RotaProtegida>
+        }
+      />
+
+      <Route path="*" element={<Navigate to={sessao?.token ? '/' : '/login'} replace />} />
+    </Routes>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <RotasAplicacao />
+    </BrowserRouter>
+  );
 }
