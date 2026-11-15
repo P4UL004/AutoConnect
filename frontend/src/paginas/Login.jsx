@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Box, Typography, TextField, Button, Alert } from '@mui/material';
 import Logo from '../componentes/Logo';
 import { api, guardarSessao } from '../servicos/api';
@@ -41,6 +42,8 @@ export default function Login({ onLoginSucesso }) {
   const [erroSenha, setErroSenha] = useState('');
   const [erroGeral, setErroGeral] = useState('');
   const [carregando, setCarregando] = useState(false);
+  const location = useLocation();
+  const mensagemSucesso = location.state?.mensagem || '';
 
   function validar() {
     const emailValido = /^\S+@\S+\.\S+$/.test(email);
@@ -104,6 +107,12 @@ export default function Login({ onLoginSucesso }) {
           Entre na sua conta
         </Typography>
 
+        {mensagemSucesso && !erroGeral && (
+          <Alert severity="success" variant="outlined" role="status">
+            {mensagemSucesso}
+          </Alert>
+        )}
+
         {erroGeral && (
           <Alert severity="error" variant="outlined" role="alert">
             {erroGeral}
@@ -164,6 +173,14 @@ export default function Login({ onLoginSucesso }) {
           }}
         >
           {carregando ? 'Entrando...' : 'Entrar'}
+        </Button>
+
+        <Button
+          component={RouterLink}
+          to="/cadastro"
+          sx={{ justifySelf: 'center', textTransform: 'none', color: '#FFF' }}
+        >
+          Criar conta
         </Button>
       </Box>
     </Box>
