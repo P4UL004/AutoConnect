@@ -17,6 +17,7 @@ import br.com.AutoConnect.backend.model.AgendamentoTestDrive;
 import br.com.AutoConnect.backend.model.EstadoAgendamento;
 import br.com.AutoConnect.backend.model.EstadoVeiculo;
 import br.com.AutoConnect.backend.model.Perfil;
+import br.com.AutoConnect.backend.model.TipoPessoa;
 import br.com.AutoConnect.backend.model.Usuario;
 import br.com.AutoConnect.backend.model.Veiculo;
 import br.com.AutoConnect.backend.repository.AgendamentoTestDriveRepository;
@@ -78,6 +79,12 @@ public class TestDriveService {
             if (cliente.getPerfil() != Perfil.CLIENTE) {
                 throw new RegraNegocioException(HttpStatus.BAD_REQUEST, "Selecione um cliente válido.");
             }
+        }
+
+        // Test-drive e exclusivo para pessoa fisica
+        if (cliente.getTipoPessoa() == TipoPessoa.PJ) {
+            throw new RegraNegocioException(HttpStatus.BAD_REQUEST,
+                    "Test-drive disponível apenas para pessoa física.");
         }
 
         // c) Data e hora de hoje ou futura
