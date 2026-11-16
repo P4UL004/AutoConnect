@@ -39,7 +39,7 @@ export const ATALHOS = [
   },
   {
     id: 'geofencing',
-    titulo: 'Geofencing (RF-03)',
+    titulo: 'Geofencing',
     descricao: 'Monitoramento geográfico em tempo real e alertas de perímetro e velocidade.',
     rota: '/prototipos/geofencing',
     prototipo: true,
@@ -47,7 +47,7 @@ export const ATALHOS = [
   },
   {
     id: 'credito',
-    titulo: 'Crédito (RF-04)',
+    titulo: 'Crédito',
     descricao: 'Simulação de financiamento, validação de CPF e propostas pré-aprovadas.',
     rota: '/prototipos/credito',
     prototipo: true,
@@ -55,7 +55,7 @@ export const ATALHOS = [
   },
   {
     id: 'diagnostico-obd',
-    titulo: 'Diagnóstico OBD-II (RF-06)',
+    titulo: 'Diagnóstico OBD-II',
     descricao: 'Recepção de pacotes de telemetria, códigos DTC e alertas críticos.',
     rota: '/prototipos/diagnostico',
     prototipo: true,
@@ -63,7 +63,7 @@ export const ATALHOS = [
   },
   {
     id: 'orcamento-remoto',
-    titulo: 'Orçamento remoto (RF-07)',
+    titulo: 'Orçamento remoto',
     descricao: 'Envio de link temporário e aprovação item a item pelo cliente.',
     rota: '/prototipos/orcamento-remoto',
     prototipo: true,
@@ -71,7 +71,7 @@ export const ATALHOS = [
   },
   {
     id: 'estoque-pecas',
-    titulo: 'Estoque de peças (RF-08)',
+    titulo: 'Estoque de peças',
     descricao: 'Controle de saldo, reservas em OS e solicitações automáticas de compra.',
     rota: '/prototipos/estoque',
     prototipo: true,
@@ -79,7 +79,7 @@ export const ATALHOS = [
   },
   {
     id: 'apontamento-horas',
-    titulo: 'Apontamento de horas (RF-09)',
+    titulo: 'Apontamento de horas',
     descricao: 'Cronômetro por tarefa da OS e cálculo em tempo real de eficiência.',
     rota: '/prototipos/horas',
     prototipo: true,
@@ -87,7 +87,7 @@ export const ATALHOS = [
   },
   {
     id: 'painel-bi',
-    titulo: 'Painel BI (RF-10)',
+    titulo: 'Painel BI',
     descricao: 'Indicadores gerenciais, gráficos de desempenho e exportação CSV/PDF.',
     rota: '/prototipos/painel-bi',
     prototipo: true,

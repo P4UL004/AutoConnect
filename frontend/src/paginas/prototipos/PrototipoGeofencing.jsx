@@ -135,7 +135,7 @@ export default function PrototipoGeofencing({ onVoltar }) {
         >
           <Box>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 600 }}>
-              Geofencing e Telemetria de Test-drive (RF-03)
+              Geofencing e Telemetria de Test-drive
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {CONFIG_GEOFENCING.veiculo} • {CONFIG_GEOFENCING.condutor}
@@ -146,9 +146,6 @@ export default function PrototipoGeofencing({ onVoltar }) {
           </Button>
         </Stack>
 
-        <Alert severity="info" sx={{ mb: 2 }}>
-          Protótipo visual - dados simulados
-        </Alert>
 
         {emAlerta && (
           <Alert severity="error" sx={{ mb: 2 }}>

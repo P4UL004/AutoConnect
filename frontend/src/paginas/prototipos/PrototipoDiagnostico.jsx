@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Alert,
   Box,
   Button,
   Chip,
@@ -90,7 +89,7 @@ export default function PrototipoDiagnostico({ onVoltar }) {
         >
           <Box>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 600 }}>
-              Diagnóstico Remoto OBD-II (RF-06)
+              Diagnóstico Remoto OBD-II
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Monitoramento de códigos DTC e disparo automático de alertas críticos
@@ -106,9 +105,6 @@ export default function PrototipoDiagnostico({ onVoltar }) {
           </Stack>
         </Stack>
 
-        <Alert severity="info" sx={{ mb: 3 }}>
-          Protótipo visual - dados simulados
-        </Alert>
 
         <Box
           sx={{

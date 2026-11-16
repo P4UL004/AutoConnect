@@ -99,7 +99,7 @@ export default function PrototipoOrcamentoRemoto({ onVoltar }) {
         >
           <Box>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 600 }}>
-              Orçamento Remoto de OS (RF-07)
+              Orçamento Remoto de OS
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {OS_ORCAMENTO_EXEMPLO.numero} • {OS_ORCAMENTO_EXEMPLO.veiculo}
@@ -110,9 +110,6 @@ export default function PrototipoOrcamentoRemoto({ onVoltar }) {
           </Button>
         </Stack>
 
-        <Alert severity="info" sx={{ mb: 2 }}>
-          Protótipo visual - dados simulados
-        </Alert>
 
         <Paper
           elevation={0}

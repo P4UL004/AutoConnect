@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import {
-  Alert,
   Box,
   Button,
   Paper,
@@ -135,7 +134,7 @@ export default function PrototipoPainelBI({ onVoltar }) {
         >
           <Box>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 600 }}>
-              Painel Executivo de BI (RF-10)
+              Painel Executivo de BI
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Indicadores comerciais, giro de pátio e exportação gerencial
@@ -155,9 +154,6 @@ export default function PrototipoPainelBI({ onVoltar }) {
           </Stack>
         </Stack>
 
-        <Alert severity="info" sx={{ mb: 3 }} className="nao-imprimir">
-          Protótipo visual - dados simulados
-        </Alert>
 
         <Box
           sx={{

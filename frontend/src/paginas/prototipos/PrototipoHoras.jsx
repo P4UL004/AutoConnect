@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Alert,
   Box,
   Button,
   Chip,
@@ -87,7 +86,7 @@ export default function PrototipoHoras({ onVoltar }) {
         >
           <Box>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 600 }}>
-              Apontamento de Horas e Eficiência Técnica (RF-09)
+              Apontamento de Horas e Eficiência Técnica
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {OS_APONTAMENTO_EXEMPLO.numero} • {OS_APONTAMENTO_EXEMPLO.veiculo} • Técnico:{' '}
@@ -99,9 +98,6 @@ export default function PrototipoHoras({ onVoltar }) {
           </Button>
         </Stack>
 
-        <Alert severity="info" sx={{ mb: 3 }}>
-          Protótipo visual - dados simulados
-        </Alert>
 
         <Box
           sx={{

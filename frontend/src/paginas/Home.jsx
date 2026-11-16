@@ -4,7 +4,7 @@ import {
   Avatar,
   Box,
   Button,
-  Chip,
+  Tooltip,
   Divider,
   List,
   ListItemButton,
@@ -163,12 +163,16 @@ export default function Home({ sessao: sessaoProp, onDeslogar }) {
                         {item.titulo}
                       </Typography>
                       {item.prototipo && (
-                        <Chip
-                          label="Protótipo"
-                          size="small"
-                          color="primary"
-                          variant="outlined"
-                        />
+                        <Tooltip title="Protótipo com dados simulados" arrow>
+                          <Typography
+                            component="span"
+                            variant="subtitle1"
+                            color="text.secondary"
+                            sx={{ fontWeight: 600, ml: -0.75 }}
+                          >
+                            *
+                          </Typography>
+                        </Tooltip>
                       )}
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
