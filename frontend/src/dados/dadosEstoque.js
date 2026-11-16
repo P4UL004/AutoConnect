@@ -1,0 +1,42 @@
+export const PECAS_INICIAIS_ESTOQUE = [
+  {
+    codigo: 'PEC-101',
+    nome: 'Filtro de Óleo Sintético 5W30',
+    saldo: 14,
+    reservado: 2,
+    minimo: 10,
+    qtdPorOs: 2,
+  },
+  {
+    codigo: 'PEC-102',
+    nome: 'Jogo de Pastilhas de Freio Dianteiras',
+    saldo: 8,
+    reservado: 1,
+    minimo: 6,
+    qtdPorOs: 2,
+  },
+  {
+    codigo: 'PEC-103',
+    nome: 'Vela de Ignição Iridium (Unidade)',
+    saldo: 20,
+    reservado: 4,
+    minimo: 12,
+    qtdPorOs: 4,
+  },
+  {
+    codigo: 'PEC-104',
+    nome: 'Correia Dentada + Tensor',
+    saldo: 6,
+    reservado: 1,
+    minimo: 4,
+    qtdPorOs: 1,
+  },
+  {
+    codigo: 'PEC-105',
+    nome: 'Amortecedor Dianteiro Pressurizado',
+    saldo: 9,
+    reservado: 0,
+    minimo: 5,
+    qtdPorOs: 2,
+  },
+];

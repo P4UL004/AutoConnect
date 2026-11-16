@@ -30,6 +30,23 @@ public class Usuario {
     @Column(nullable = false)
     private Perfil perfil;
 
+    @Enumerated(EnumType.STRING)
+    private TipoPessoa tipoPessoa;
+
+    @Column(unique = true)
+    private String documento;
+
+    private String telefone;
+
+    public TipoPessoa getTipoPessoa() { return tipoPessoa; }
+    public void setTipoPessoa(TipoPessoa tipoPessoa) { this.tipoPessoa = tipoPessoa; }
+
+    public String getDocumento() { return documento; }
+    public void setDocumento(String documento) { this.documento = documento; }
+
+    public String getTelefone() { return telefone; }
+    public void setTelefone(String telefone) { this.telefone = telefone; }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

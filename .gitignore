@@ -20,3 +20,6 @@ dist/
 .env
 application-local.yml
 application-local.properties
+
+# Fotos enviadas nos testes
+backend/uploads/

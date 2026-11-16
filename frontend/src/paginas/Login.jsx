@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { Box, Typography, TextField, Button, Alert } from '@mui/material';
 import Logo from '../componentes/Logo';
-
+import { api, guardarSessao } from '../servicos/api';
 
 const fundoDiagonal = `linear-gradient(45deg,
   #2A3040 0%, #2A3040 14.3%,
@@ -34,26 +35,15 @@ const estiloRotulo = {
   textTransform: 'uppercase',
 };
 
-// MOCK: simula a resposta do servidor. Depois trocamos por uma chamada real.
-function loginMock(email, senha) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (email === 'cliente@teste.com' && senha === '123456') {
-        resolve({ token: 'token-falso', perfil: 'CLIENTE' });
-      } else {
-        reject({ status: 401 });
-      }
-    }, 800);
-  });
-}
-
-export default function Login() {
+export default function Login({ onLoginSucesso }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erroEmail, setErroEmail] = useState('');
   const [erroSenha, setErroSenha] = useState('');
   const [erroGeral, setErroGeral] = useState('');
   const [carregando, setCarregando] = useState(false);
+  const location = useLocation();
+  const mensagemSucesso = location.state?.mensagem || '';
 
   function validar() {
     const emailValido = /^\S+@\S+\.\S+$/.test(email);
@@ -69,59 +59,128 @@ export default function Login() {
 
     setCarregando(true);
     try {
-      const resposta = await loginMock(email, senha);
-      alert(`Login feito! Perfil: ${resposta.perfil}`);
-    } catch {
-      setErroGeral('E-mail ou senha inválidos');
+      const resposta = await api.post('/api/auth/login', { email, senha });
+      const { token, nome, perfil } = resposta.data;
+      guardarSessao({ token, nome, perfil });
+      if (onLoginSucesso) {
+        onLoginSucesso({ token, nome, perfil });
+      }
+    } catch (erro) {
+      if (erro.response) {
+        const mensagemServidor =
+          erro.response.data?.mensagem ||
+          (erro.response.status === 401
+            ? 'E-mail ou senha inválidos'
+            : 'Erro ao conectar ao servidor');
+        setErroGeral(mensagemServidor);
+      } else {
+        setErroGeral('Não foi possível conectar ao servidor');
+      }
     } finally {
       setCarregando(false);
     }
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center',
-               p: 2, position: 'relative', background: fundoDiagonal }}>
-
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'grid',
+        placeItems: 'center',
+        p: 2,
+        position: 'relative',
+        background: fundoDiagonal,
+      }}
+    >
       {/* Logo fixo no canto superior esquerdo */}
       <Box component="header" sx={{ position: 'absolute', top: 12, left: { xs: 16, sm: 32 } }}>
         <Logo />
       </Box>
 
-      <Box component="form" onSubmit={enviar} noValidate
-           sx={{ width: '100%', maxWidth: 300, display: 'grid', gap: 2 }}>
-
-        <Typography component="h1"
-                    sx={{ fontFamily: '"DM Sans", sans-serif', fontSize: 20 }}>
+      <Box
+        component="form"
+        onSubmit={enviar}
+        noValidate
+        sx={{ width: '100%', maxWidth: 300, display: 'grid', gap: 2 }}
+      >
+        <Typography component="h1" sx={{ fontFamily: '"DM Sans", sans-serif', fontSize: 20 }}>
           Entre na sua conta
         </Typography>
 
-        {erroGeral && <Alert severity="error" variant="outlined">{erroGeral}</Alert>}
+        {mensagemSucesso && !erroGeral && (
+          <Alert severity="success" variant="outlined" role="status">
+            {mensagemSucesso}
+          </Alert>
+        )}
+
+        {erroGeral && (
+          <Alert severity="error" variant="outlined" role="alert">
+            {erroGeral}
+          </Alert>
+        )}
 
         {/* O rótulo fica fora do campo. O htmlFor liga o rótulo ao campo com o mesmo
             id, então clicar no texto foca o campo e leitores de tela anunciam certo. */}
         <Box sx={{ display: 'grid', gap: 1 }}>
-          <Typography component="label" htmlFor="email" sx={estiloRotulo}>Email</Typography>
-          <TextField id="email" type="email" autoComplete="email"
-                     placeholder="email@olamundo.com"
-                     value={email} onChange={(e) => setEmail(e.target.value)}
-                     error={!!erroEmail} helperText={erroEmail} sx={estiloCampo} />
+          <Typography component="label" htmlFor="email" sx={estiloRotulo}>
+            Email
+          </Typography>
+          <TextField
+            id="email"
+            type="email"
+            autoComplete="email"
+            placeholder="email@olamundo.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={!!erroEmail}
+            helperText={erroEmail}
+            sx={estiloCampo}
+          />
         </Box>
 
         <Box sx={{ display: 'grid', gap: 1 }}>
-          <Typography component="label" htmlFor="senha" sx={estiloRotulo}>Senha</Typography>
-          <TextField id="senha" type="password" autoComplete="current-password"
-                     placeholder="******"
-                     value={senha} onChange={(e) => setSenha(e.target.value)}
-                     error={!!erroSenha} helperText={erroSenha} sx={estiloCampo} />
+          <Typography component="label" htmlFor="senha" sx={estiloRotulo}>
+            Senha
+          </Typography>
+          <TextField
+            id="senha"
+            type="password"
+            autoComplete="current-password"
+            placeholder="******"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            error={!!erroSenha}
+            helperText={erroSenha}
+            sx={estiloCampo}
+          />
         </Box>
 
-        <Button type="submit" variant="contained" disabled={carregando}
-                sx={{ justifySelf: 'center', width: 170, py: 1.5, mt: 1,
-                      backgroundColor: '#FFF', color: '#000',
-                      fontWeight: 600, textTransform: 'none',
-                      '&:hover': { backgroundColor: '#E6E8EF' },
-                      '&.Mui-disabled': { backgroundColor: '#B8BFD1', color: '#000' } }}>
-          {carregando ? 'Entrando...' : 'log in'}
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={carregando}
+          sx={{
+            justifySelf: 'center',
+            width: 170,
+            py: 1.5,
+            mt: 1,
+            backgroundColor: '#FFF',
+            color: '#000',
+            fontWeight: 600,
+            textTransform: 'none',
+            '&:hover': { backgroundColor: '#E6E8EF' },
+            '&.Mui-disabled': { backgroundColor: '#B8BFD1', color: '#000' },
+          }}
+        >
+          {carregando ? 'Entrando...' : 'Entrar'}
+        </Button>
+
+        <Button
+          component={RouterLink}
+          to="/cadastro"
+          sx={{ justifySelf: 'center', textTransform: 'none', color: '#FFF' }}
+        >
+          Criar conta
         </Button>
       </Box>
     </Box>
