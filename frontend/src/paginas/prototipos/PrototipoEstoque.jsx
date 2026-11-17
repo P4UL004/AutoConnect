@@ -109,7 +109,7 @@ export default function PrototipoEstoque({ onVoltar }) {
         >
           <Box>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 600 }}>
-              Controle de Estoque e Reposição de Peças (RF-08)
+              Controle de Estoque e Reposição de Peças
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Reserva automática em orçamento, baixa na finalização e gatilho de compra
@@ -120,9 +120,6 @@ export default function PrototipoEstoque({ onVoltar }) {
           </Button>
         </Stack>
 
-        <Alert severity="info" sx={{ mb: 2 }}>
-          Protótipo visual - dados simulados
-        </Alert>
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ mb: 2 }}>
           <Button variant="contained" onClick={handleOrcarOs}>

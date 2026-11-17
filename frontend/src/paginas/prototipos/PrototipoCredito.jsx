@@ -159,7 +159,7 @@ export default function PrototipoCredito({ onVoltar }) {
         >
           <Box>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 600 }}>
-              Simulação e Análise de Crédito (RF-04)
+              Simulação e Análise de Crédito
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Validação cadastral no cliente e cálculo de parcelas pela Tabela Price
@@ -170,9 +170,6 @@ export default function PrototipoCredito({ onVoltar }) {
           </Button>
         </Stack>
 
-        <Alert severity="info" sx={{ mb: 2 }}>
-          Protótipo visual - dados simulados
-        </Alert>
 
         <Paper
           component="form"
