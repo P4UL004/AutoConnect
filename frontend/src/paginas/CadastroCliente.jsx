@@ -4,6 +4,7 @@ import {
   Alert,
   Box,
   Button,
+  Paper,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
@@ -130,20 +131,44 @@ export default function CadastroCliente() {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center', p: 2 }}>
-      <Box sx={{ position: 'absolute', top: 12, left: { xs: 16, sm: 32 } }}>
-        <Logo />
-      </Box>
-
-      <Box
+    <Box
+      component="main"
+      sx={{
+        minHeight: '100vh',
+        display: 'grid',
+        alignContent: 'center',
+        justifyItems: 'center',
+        gap: 2.5,
+        p: { xs: 2, sm: 3 },
+        bgcolor: 'background.default',
+      }}
+    >
+      <Logo />
+      <Paper
         component="form"
         onSubmit={enviar}
         noValidate
-        sx={{ width: '100%', maxWidth: 420, display: 'grid', gap: 2, mt: 6 }}
+        elevation={0}
+        sx={{
+          width: '100%',
+          maxWidth: 500,
+          display: 'grid',
+          gap: 2,
+          p: { xs: 2.5, sm: 4 },
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 3,
+          boxShadow: '0 20px 55px rgba(27, 55, 60, 0.07)',
+        }}
       >
-        <Typography component="h1" sx={{ fontSize: 20 }}>
-          Criar conta
-        </Typography>
+        <Box sx={{ mb: 0.5 }}>
+          <Typography component="h1" sx={{ color: 'text.primary', fontSize: 26, fontWeight: 700 }}>
+            Criar conta
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+            Preencha seus dados para começar.
+          </Typography>
+        </Box>
 
         {erroGeral && (
           <Alert severity="error" variant="outlined" role="alert">
@@ -168,6 +193,7 @@ export default function CadastroCliente() {
         </ToggleButtonGroup>
 
         <TextField
+          fullWidth
           label={ehPf ? 'Nome completo' : 'Razão social'}
           value={campos.nome}
           onChange={alterar('nome')}
@@ -176,6 +202,7 @@ export default function CadastroCliente() {
           autoComplete="name"
         />
         <TextField
+          fullWidth
           label={ehPf ? 'CPF' : 'CNPJ'}
           value={campos.documento}
           onChange={alterar('documento')}
@@ -184,6 +211,7 @@ export default function CadastroCliente() {
           inputProps={{ inputMode: 'numeric', maxLength: ehPf ? 14 : 18 }}
         />
         <TextField
+          fullWidth
           label="E-mail"
           type="email"
           value={campos.email}
@@ -193,6 +221,7 @@ export default function CadastroCliente() {
           autoComplete="email"
         />
         <TextField
+          fullWidth
           label="Telefone (opcional)"
           value={campos.telefone}
           onChange={alterar('telefone')}
@@ -201,6 +230,7 @@ export default function CadastroCliente() {
           inputProps={{ inputMode: 'tel' }}
         />
         <TextField
+          fullWidth
           label="Senha"
           type="password"
           value={campos.senha}
@@ -210,6 +240,7 @@ export default function CadastroCliente() {
           autoComplete="new-password"
         />
         <TextField
+          fullWidth
           label="Confirmar senha"
           type="password"
           value={campos.confirmarSenha}
@@ -219,13 +250,13 @@ export default function CadastroCliente() {
           autoComplete="new-password"
         />
 
-        <Button type="submit" variant="contained" disabled={enviando} sx={{ py: 1.4 }}>
+        <Button type="submit" variant="contained" disabled={enviando} sx={{ py: 1.3, mt: 0.5 }}>
           {enviando ? 'Enviando...' : 'Cadastrar'}
         </Button>
-        <Button component={RouterLink} to="/login" sx={{ textTransform: 'none' }}>
+        <Button component={RouterLink} to="/login" variant="text">
           Voltar ao login
         </Button>
-      </Box>
+      </Paper>
     </Box>
   );
 }

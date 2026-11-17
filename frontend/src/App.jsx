@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { obterSessao } from './servicos/api';
 import { perfilTemAcessoRota } from './atalhos';
+import LayoutAutenticado from './componentes/LayoutAutenticado';
 import Login from './paginas/Login';
 import Home from './paginas/Home';
 import CadastroCliente from './paginas/CadastroCliente';
@@ -28,7 +29,7 @@ function RotaProtegida({ sessao, children }) {
     return <Navigate to="/" replace />;
   }
 
-  return children;
+  return <LayoutAutenticado sessao={sessaoAtual}>{children}</LayoutAutenticado>;
 }
 
 function RotasAplicacao() {
@@ -83,7 +84,7 @@ function RotasAplicacao() {
         path="/"
         element={
           <RotaProtegida sessao={sessao}>
-            <Home sessao={sessao} onDeslogar={() => setSessao(null)} />
+            <Home sessao={sessao} />
           </RotaProtegida>
         }
       />

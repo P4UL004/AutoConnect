@@ -229,7 +229,7 @@ export default function PaginaInventario({ sessao, onVoltar }) {
           <Button
             variant="outlined"
             onClick={onVoltar}
-            sx={{ mb: 3, borderRadius: 0, color: '#FFF', borderColor: '#C9CCD6' }}
+            sx={{ mb: 3 }}
           >
             Voltar
           </Button>
@@ -271,7 +271,7 @@ export default function PaginaInventario({ sessao, onVoltar }) {
             justifyContent: 'space-between',
           }}
         >
-          <Typography variant="h6" component="h1" sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+          <Typography variant="h6" component="h1" sx={{ color: 'text.primary', fontWeight: 600 }}>
             Inventário de Veículos
           </Typography>
 
@@ -287,14 +287,12 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                 : onVoltar
             }
             sx={{
-              color: '#FFFFFF',
-              borderColor: '#C9CCD6',
-              borderRadius: 0,
-              textTransform: 'none',
+              color: 'primary.main',
+              borderColor: 'divider',
               fontWeight: 600,
               '&:hover': {
-                borderColor: '#FFFFFF',
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                borderColor: 'primary.main',
+                backgroundColor: 'primary.light',
               },
             }}
           >
@@ -317,12 +315,13 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                 gap: 2,
                 backgroundColor: 'background.paper',
                 p: 2,
-                border: '1px solid #3C4869',
+                border: '1px solid',
+                borderColor: 'divider',
               }}
             >
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, flex: 1 }}>
                 <FormControl size="small" sx={{ minWidth: 160 }}>
-                  <InputLabel id="filtro-estado-rotulo" sx={{ color: '#B8BFD1' }}>
+                  <InputLabel id="filtro-estado-rotulo">
                     Estado
                   </InputLabel>
                   <Select
@@ -334,7 +333,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                       setFiltroEstado(e.target.value);
                       setPagina(0);
                     }}
-                    sx={{ borderRadius: 0, color: '#FFF' }}
                   >
                     <MenuItem value="">Todos os estados</MenuItem>
                     {ESTADOS_VEICULO.map((est) => (
@@ -355,7 +353,7 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                     setFiltroPlaca(e.target.value);
                     setPagina(0);
                   }}
-                  sx={{ minWidth: 160, '& input': { color: '#FFF' } }}
+                  sx={{ minWidth: 160 }}
                 />
               </Box>
 
@@ -363,16 +361,8 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                 variant="contained"
                 onClick={abrirNovoVeiculo}
                 sx={{
-                  borderRadius: 0,
-                  backgroundColor: '#FFFFFF',
-                  color: '#000000',
-                  fontWeight: 600,
-                  textTransform: 'none',
                   px: 3,
                   py: 1,
-                  '&:hover': {
-                    backgroundColor: '#E6E8EF',
-                  },
                 }}
               >
                 Novo veículo
@@ -386,17 +376,20 @@ export default function PaginaInventario({ sessao, onVoltar }) {
             )}
 
             {/* Tabela de Listagem */}
-            <TableContainer component={Paper} sx={{ backgroundColor: 'background.paper', borderRadius: 0, border: '1px solid #3C4869' }}>
+            <TableContainer
+              component={Paper}
+              sx={{ backgroundColor: 'background.paper', border: '1px solid', borderColor: 'divider' }}
+            >
               <Table aria-label="Tabela de veículos cadastrados">
                 <TableHead>
-                  <TableRow sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Placa</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Modelo</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Ano</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>KM</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Estado</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Fotos</TableCell>
-                    <TableCell align="right" sx={{ color: '#FFFFFF', fontWeight: 600 }}>Ações</TableCell>
+                  <TableRow>
+                    <TableCell>Placa</TableCell>
+                    <TableCell>Modelo</TableCell>
+                    <TableCell>Ano</TableCell>
+                    <TableCell>KM</TableCell>
+                    <TableCell>Estado</TableCell>
+                    <TableCell>Fotos</TableCell>
+                    <TableCell align="right">Ações</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -415,11 +408,11 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                     </TableRow>
                   ) : (
                     veiculos.map((v) => (
-                      <TableRow key={v.id} sx={{ '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.03)' } }}>
-                        <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>{v.placa}</TableCell>
-                        <TableCell sx={{ color: '#FFFFFF' }}>{v.modelo}</TableCell>
-                        <TableCell sx={{ color: '#B8BFD1' }}>{v.ano}</TableCell>
-                        <TableCell sx={{ color: '#B8BFD1' }}>
+                      <TableRow key={v.id} sx={{ '&:hover': { backgroundColor: '#F7F9FA' } }}>
+                        <TableCell sx={{ color: 'text.primary', fontWeight: 600 }}>{v.placa}</TableCell>
+                        <TableCell sx={{ color: 'text.primary' }}>{v.modelo}</TableCell>
+                        <TableCell sx={{ color: 'text.secondary' }}>{v.ano}</TableCell>
+                        <TableCell sx={{ color: 'text.secondary' }}>
                           {v.quilometragem != null ? v.quilometragem.toLocaleString('pt-BR') : '-'}
                         </TableCell>
                         <TableCell>
@@ -427,15 +420,14 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                             label={obterRotuloEstado(v.estado)}
                             size="small"
                             sx={{
-                              borderRadius: 0,
                               fontWeight: 600,
                               fontSize: '0.75rem',
-                              backgroundColor: v.estado === 'DISPONIVEL' ? '#2E7D32' : v.estado === 'RASCUNHO' ? '#78909C' : '#3A549C',
-                              color: '#FFFFFF',
+                              backgroundColor: v.estado === 'DISPONIVEL' ? '#E8F4F3' : '#EEF1F2',
+                              color: v.estado === 'DISPONIVEL' ? 'success.dark' : 'text.secondary',
                             }}
                           />
                         </TableCell>
-                        <TableCell sx={{ color: '#B8BFD1' }}>
+                        <TableCell sx={{ color: 'text.secondary' }}>
                           {v.quantidadeFotos} foto(s)
                         </TableCell>
                         <TableCell align="right">
@@ -444,12 +436,10 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                             variant="outlined"
                             onClick={() => abrirEdicaoVeiculo(v)}
                             sx={{
-                              borderRadius: 0,
-                              borderColor: '#C9CCD6',
-                              color: '#FFFFFF',
-                              textTransform: 'none',
+                              borderColor: 'divider',
+                              color: 'primary.main',
                               fontSize: '0.8rem',
-                              '&:hover': { borderColor: '#FFFFFF', backgroundColor: 'rgba(255,255,255,0.08)' },
+                              '&:hover': { borderColor: 'primary.main', backgroundColor: 'primary.light' },
                             }}
                           >
                             Visualizar / Editar
@@ -478,9 +468,10 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                 labelRowsPerPage="Itens por página:"
                 labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count !== -1 ? count : `mais de ${to}`}`}
                 sx={{
-                  color: '#B8BFD1',
-                  borderTop: '1px solid #3C4869',
-                  '& .MuiTablePagination-selectIcon': { color: '#B8BFD1' },
+                  color: 'text.secondary',
+                  borderTop: '1px solid',
+                  borderColor: 'divider',
+                  '& .MuiTablePagination-selectIcon': { color: 'text.secondary' },
                 }}
               />
             </TableContainer>
@@ -495,7 +486,8 @@ export default function PaginaInventario({ sessao, onVoltar }) {
               noValidate
               sx={{
                 backgroundColor: 'background.paper',
-                border: '1px solid #3C4869',
+                border: '1px solid',
+                borderColor: 'divider',
                 p: { xs: 2.5, sm: 4 },
                 display: 'flex',
                 flexDirection: 'column',
@@ -503,7 +495,7 @@ export default function PaginaInventario({ sessao, onVoltar }) {
               }}
             >
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
-                <Typography component="h2" variant="h6" sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+                <Typography component="h2" variant="h6" sx={{ color: 'text.primary', fontWeight: 600 }}>
                   1. Dados do Veículo {veiculoAtual?.id && `(#${veiculoAtual.id} - ${obterRotuloEstado(veiculoAtual.estado)})`}
                 </Typography>
 
@@ -512,10 +504,9 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                     label={`Estado: ${obterRotuloEstado(veiculoAtual.estado)}`}
                     size="small"
                     sx={{
-                      borderRadius: 0,
                       fontWeight: 600,
-                      backgroundColor: veiculoAtual.estado === 'DISPONIVEL' ? '#2E7D32' : '#3A549C',
-                      color: '#FFFFFF',
+                      backgroundColor: veiculoAtual.estado === 'DISPONIVEL' ? '#E8F4F3' : '#EEF1F2',
+                      color: veiculoAtual.estado === 'DISPONIVEL' ? 'success.dark' : 'text.secondary',
                     }}
                   />
                 )}
@@ -541,7 +532,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                   value={placa}
                   onChange={(e) => setPlaca(e.target.value.toUpperCase())}
                   helperText="Mercosul ou antiga"
-                  sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
                 />
 
                 <TextField
@@ -551,7 +541,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                   value={chassi}
                   onChange={(e) => setChassi(e.target.value.toUpperCase())}
                   helperText="17 caracteres sem I, O ou Q"
-                  sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
                 />
 
                 <TextField
@@ -560,7 +549,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                   placeholder="Ex: Gol 1.0 Trendline"
                   value={modelo}
                   onChange={(e) => setModelo(e.target.value)}
-                  sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
                 />
 
                 <TextField
@@ -571,7 +559,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                   value={ano}
                   onChange={(e) => setAno(e.target.value)}
                   helperText="De 1950 ao ano atual + 1"
-                  sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
                 />
 
                 <TextField
@@ -582,7 +569,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                   value={quilometragem}
                   onChange={(e) => setQuilometragem(e.target.value)}
                   helperText="Maior ou igual a zero"
-                  sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
                 />
               </Box>
 
@@ -595,7 +581,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                 value={laudoCautelar}
                 onChange={(e) => setLaudoCautelar(e.target.value)}
                 helperText={`${laudoCautelar.length}/2000 caracteres`}
-                sx={{ '& textarea': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
               />
 
               {/* Alteração manual de estado pelo Administrador */}
@@ -603,15 +588,16 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                 <Box
                   sx={{
                     p: 2,
-                    border: '1px solid #3C4869',
-                    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    backgroundColor: '#F7F9FA',
                     display: 'flex',
                     flexWrap: 'wrap',
                     alignItems: 'center',
                     gap: 2,
                   }}
                 >
-                  <Typography variant="body2" sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+                  <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 600 }}>
                     Alterar estado manualmente (Administrador):
                   </Typography>
 
@@ -619,7 +605,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                     <Select
                       value={novoEstadoManual}
                       onChange={(e) => setNovoEstadoManual(e.target.value)}
-                      sx={{ borderRadius: 0, color: '#FFF' }}
                     >
                       {ESTADOS_VEICULO.filter((est) => est.valor !== 'RASCUNHO').map((est) => (
                         <MenuItem key={est.valor} value={est.valor}>
@@ -634,10 +619,8 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                     onClick={handleAlterarEstadoManual}
                     disabled={alterandoEstado || novoEstadoManual === veiculoAtual.estado}
                     sx={{
-                      borderRadius: 0,
-                      borderColor: '#C9CCD6',
-                      color: '#FFF',
-                      textTransform: 'none',
+                      borderColor: 'divider',
+                      color: 'primary.main',
                     }}
                   >
                     {alterandoEstado ? 'Alterando...' : 'Salvar novo estado'}
@@ -651,14 +634,8 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                   variant="contained"
                   disabled={salvandoDados}
                   sx={{
-                    borderRadius: 0,
-                    backgroundColor: '#FFFFFF',
-                    color: '#000000',
-                    fontWeight: 600,
-                    textTransform: 'none',
                     px: 3,
                     py: 1.25,
-                    '&:hover': { backgroundColor: '#E6E8EF' },
                   }}
                 >
                   {salvandoDados
@@ -675,14 +652,15 @@ export default function PaginaInventario({ sessao, onVoltar }) {
               <Box
                 sx={{
                   backgroundColor: 'background.paper',
-                  border: '1px solid #3C4869',
+                  border: '1px solid',
+                  borderColor: 'divider',
                   p: { xs: 2.5, sm: 4 },
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 3,
                 }}
               >
-                <Typography component="h2" variant="h6" sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+                <Typography component="h2" variant="h6" sx={{ color: 'text.primary', fontWeight: 600 }}>
                   2. Fotos do Veículo
                 </Typography>
 
@@ -704,7 +682,8 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                 <Box
                   sx={{
                     pt: 2,
-                    borderTop: '1px solid #3C4869',
+                    borderTop: '1px solid',
+                    borderColor: 'divider',
                     display: 'flex',
                     flexWrap: 'wrap',
                     alignItems: 'center',
@@ -727,13 +706,13 @@ export default function PaginaInventario({ sessao, onVoltar }) {
                       disabled={ativando}
                       sx={{
                         borderRadius: 0,
-                        backgroundColor: '#2E7D32',
-                        color: '#FFFFFF',
+                        backgroundColor: 'success.main',
+                        color: 'common.white',
                         fontWeight: 600,
                         textTransform: 'none',
                         px: 4,
                         py: 1.25,
-                        '&:hover': { backgroundColor: '#1B5E20' },
+                        '&:hover': { backgroundColor: 'success.dark' },
                       }}
                     >
                       {ativando ? 'Ativando...' : 'Ativar veículo'}

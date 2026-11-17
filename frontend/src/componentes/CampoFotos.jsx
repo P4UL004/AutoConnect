@@ -133,9 +133,9 @@ export default function CampoFotos({ urlBase, minimo = 2, maximo = 10, editavel 
           gap: 1,
         }}
       >
-        <Typography variant="body1" sx={{ fontWeight: 600, color: '#FFFFFF' }}>
+        <Typography variant="body1" sx={{ fontWeight: 600, color: 'text.primary' }}>
           Fotos do veículo:{' '}
-          <Box component="span" sx={{ color: 'primary.light' }}>
+          <Box component="span" sx={{ color: 'primary.main' }}>
             {fotos.length} de {maximo} fotos (mínimo {minimo})
           </Box>
         </Typography>
@@ -158,14 +158,12 @@ export default function CampoFotos({ urlBase, minimo = 2, maximo = 10, editavel 
                 component="span"
                 disabled={limiteAtingido || enviando}
                 sx={{
-                  borderRadius: 0,
-                  borderColor: '#C9CCD6',
-                  color: '#FFFFFF',
-                  textTransform: 'none',
+                  borderColor: 'divider',
+                  color: 'primary.main',
                   fontWeight: 600,
                   '&:hover': {
-                    borderColor: '#FFFFFF',
-                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                    borderColor: 'primary.main',
+                    backgroundColor: 'primary.light',
                   },
                 }}
               >
@@ -188,9 +186,10 @@ export default function CampoFotos({ urlBase, minimo = 2, maximo = 10, editavel 
         <Box
           sx={{
             p: 3,
-            border: '1px dashed #3C4869',
+            border: '1px dashed',
+            borderColor: 'divider',
             textAlign: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            backgroundColor: '#F7F9FA',
           }}
         >
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -216,8 +215,9 @@ export default function CampoFotos({ urlBase, minimo = 2, maximo = 10, editavel 
                 key={foto.id}
                 sx={{
                   position: 'relative',
-                  backgroundColor: '#000',
-                  border: '1px solid #3C4869',
+                  backgroundColor: 'background.default',
+                  border: '1px solid',
+                  borderColor: 'divider',
                   aspectRatio: '16/9',
                   overflow: 'hidden',
                   display: 'flex',
@@ -248,16 +248,16 @@ export default function CampoFotos({ urlBase, minimo = 2, maximo = 10, editavel 
                       minWidth: 28,
                       height: 28,
                       p: 0,
-                      backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                      color: '#FF8A80',
-                      border: '1px solid rgba(255, 138, 128, 0.5)',
+                      backgroundColor: 'rgba(23, 42, 48, 0.82)',
+                      color: '#FFFFFF',
+                      border: '1px solid rgba(255, 255, 255, 0.55)',
                       borderRadius: 0,
                       fontSize: '0.875rem',
                       fontWeight: 'bold',
                       lineHeight: 1,
                       '&:hover': {
-                        backgroundColor: '#FF8A80',
-                        color: '#000',
+                        backgroundColor: 'error.main',
+                        color: 'common.white',
                       },
                     }}
                   >
@@ -285,7 +285,7 @@ export default function CampoFotos({ urlBase, minimo = 2, maximo = 10, editavel 
                       variant="body2"
                       sx={{
                         fontSize: '0.8rem',
-                        color: item.sucesso ? '#81C784' : '#FF8A80',
+                        color: item.sucesso ? 'success.main' : 'error.main',
                       }}
                     >
                       <strong>{item.nome}</strong>: {item.mensagem}

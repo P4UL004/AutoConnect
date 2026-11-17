@@ -213,15 +213,21 @@ export default function PrototipoPainelBI({ onVoltar }) {
             <Box sx={{ width: '100%', height: 300 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={SERIE_MENSAL_BI}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#3C4869" />
-                  <XAxis dataKey="mes" stroke="#B8BFD1" />
-                  <YAxis stroke="#B8BFD1" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E8EDEE" />
+                  <XAxis dataKey="mes" stroke="#65767C" />
+                  <YAxis stroke="#65767C" />
                   <Tooltip
                     formatter={(valor) => formatarMoeda(valor)}
-                    contentStyle={{ backgroundColor: '#292D36', borderColor: '#3C4869' }}
+                    contentStyle={{
+                      backgroundColor: '#FFFFFF',
+                      borderColor: '#E3E9EB',
+                      borderRadius: 10,
+                      color: '#172A30',
+                    }}
+                    labelStyle={{ color: '#172A30' }}
                   />
                   <Legend />
-                  <Bar dataKey="faturamento" name="Faturamento (R$)" fill="#3A549C" />
+                  <Bar dataKey="faturamento" name="Faturamento (R$)" fill="#176B70" />
                 </BarChart>
               </ResponsiveContainer>
             </Box>
@@ -242,19 +248,25 @@ export default function PrototipoPainelBI({ onVoltar }) {
             <Box sx={{ width: '100%', height: 300 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={SERIE_MENSAL_BI}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#3C4869" />
-                  <XAxis dataKey="mes" stroke="#B8BFD1" />
-                  <YAxis stroke="#B8BFD1" domain={[20, 45]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E8EDEE" />
+                  <XAxis dataKey="mes" stroke="#65767C" />
+                  <YAxis stroke="#65767C" domain={[20, 45]} />
                   <Tooltip
                     formatter={(valor) => `${Number(valor).toFixed(1)}%`}
-                    contentStyle={{ backgroundColor: '#292D36', borderColor: '#3C4869' }}
+                    contentStyle={{
+                      backgroundColor: '#FFFFFF',
+                      borderColor: '#E3E9EB',
+                      borderRadius: 10,
+                      color: '#172A30',
+                    }}
+                    labelStyle={{ color: '#172A30' }}
                   />
                   <Legend />
                   <Line
                     type="monotone"
                     dataKey="conversao"
                     name="Conversão (%)"
-                    stroke="#69DB7C"
+                    stroke="#23836D"
                     strokeWidth={2.5}
                     dot={{ r: 4 }}
                   />

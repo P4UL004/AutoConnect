@@ -26,7 +26,6 @@ import br.com.AutoConnect.backend.model.EstadoOrdemServico;
 import br.com.AutoConnect.backend.model.ItemOrdemServico;
 import br.com.AutoConnect.backend.model.OrdemServico;
 import br.com.AutoConnect.backend.model.Perfil;
-import br.com.AutoConnect.backend.model.TipoItemOs;
 import br.com.AutoConnect.backend.model.Usuario;
 import br.com.AutoConnect.backend.model.Veiculo;
 import br.com.AutoConnect.backend.repository.ItemOrdemServicoRepository;

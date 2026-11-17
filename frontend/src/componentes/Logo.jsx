@@ -1,21 +1,36 @@
 import { Box, Typography } from '@mui/material';
 
-export default function Logo() {
+export default function Logo({ color = 'primary.main', compact = false }) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-     
-      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"
-           fill="none" stroke="#FFFFFF" strokeWidth="1.5">
-        {/* 3 colunas x 2 linhas de círculos */}
-        {[5, 15, 25].flatMap((cx) =>
-          [8, 22].map((cy) => (
-            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="3.5" />
-          ))
-        )}
+    <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, color }}>
+      <svg
+        width={compact ? 28 : 32}
+        height={compact ? 28 : 32}
+        viewBox="0 0 32 32"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      >
+        <path d="M8 10.5h16M8 21.5h16M10.5 8v16M21.5 8v16" opacity=".55" />
+        <circle cx="8" cy="10.5" r="3" fill="currentColor" />
+        <circle cx="24" cy="10.5" r="3" fill="currentColor" />
+        <circle cx="8" cy="21.5" r="3" fill="currentColor" />
+        <circle cx="24" cy="21.5" r="3" fill="currentColor" />
+        <circle cx="16" cy="16" r="3.5" fill="currentColor" />
       </svg>
-      <Typography component="span"
-                  sx={{ fontFamily: '"DM Sans", sans-serif', fontSize: { xs: 26, sm: 40 } }}>
-        Auto Connect
+      <Typography
+        component="span"
+        sx={{
+          fontSize: compact ? 17 : 19,
+          fontWeight: 700,
+          letterSpacing: '-0.04em',
+          color: 'inherit',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        AutoConnect
       </Typography>
     </Box>
   );

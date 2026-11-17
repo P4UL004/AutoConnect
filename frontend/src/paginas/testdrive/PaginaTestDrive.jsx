@@ -201,7 +201,7 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
           <Button
             variant="outlined"
             onClick={onVoltar}
-            sx={{ mb: 3, borderRadius: 0, color: '#FFF', borderColor: '#C9CCD6' }}
+            sx={{ mb: 3 }}
           >
             Voltar
           </Button>
@@ -243,7 +243,7 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
             justifyContent: 'space-between',
           }}
         >
-          <Typography variant="h6" component="h1" sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+          <Typography variant="h6" component="h1" sx={{ color: 'text.primary', fontWeight: 600 }}>
             Agendamento de Test-Drive
           </Typography>
 
@@ -259,14 +259,12 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                 : onVoltar
             }
             sx={{
-              color: '#FFFFFF',
-              borderColor: '#C9CCD6',
-              borderRadius: 0,
-              textTransform: 'none',
+              color: 'primary.main',
+              borderColor: 'divider',
               fontWeight: 600,
               '&:hover': {
-                borderColor: '#FFFFFF',
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                borderColor: 'primary.main',
+                backgroundColor: 'primary.light',
               },
             }}
           >
@@ -287,10 +285,11 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                 justifyContent: 'space-between',
                 backgroundColor: 'background.paper',
                 p: 2,
-                border: '1px solid #3C4869',
+                border: '1px solid',
+                borderColor: 'divider',
               }}
             >
-              <Typography variant="body1" sx={{ color: '#FFFFFF', fontWeight: 500 }}>
+              <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 500 }}>
                 {ehCliente ? 'Seus agendamentos de test-drive' : 'Todos os agendamentos'}
               </Typography>
 
@@ -298,16 +297,8 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                 variant="contained"
                 onClick={abrirNovoAgendamento}
                 sx={{
-                  borderRadius: 0,
-                  backgroundColor: '#FFFFFF',
-                  color: '#000000',
-                  fontWeight: 600,
-                  textTransform: 'none',
                   px: 3,
                   py: 1,
-                  '&:hover': {
-                    backgroundColor: '#E6E8EF',
-                  },
                 }}
               >
                 Agendar test-drive
@@ -321,16 +312,19 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
             )}
 
             {/* Tabela de Agendamentos */}
-            <TableContainer component={Paper} sx={{ backgroundColor: 'background.paper', borderRadius: 0, border: '1px solid #3C4869' }}>
+            <TableContainer
+              component={Paper}
+              sx={{ backgroundColor: 'background.paper', border: '1px solid', borderColor: 'divider' }}
+            >
               <Table aria-label="Tabela de agendamentos de test-drive">
                 <TableHead>
-                  <TableRow sx={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Veículo</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Cliente</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Data e Hora</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>CNH</TableCell>
-                    <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>Estado</TableCell>
-                    <TableCell align="right" sx={{ color: '#FFFFFF', fontWeight: 600 }}>Ações</TableCell>
+                  <TableRow>
+                    <TableCell>Veículo</TableCell>
+                    <TableCell>Cliente</TableCell>
+                    <TableCell>Data e Hora</TableCell>
+                    <TableCell>CNH</TableCell>
+                    <TableCell>Estado</TableCell>
+                    <TableCell align="right">Ações</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -351,26 +345,26 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                     agendamentos.map((ag) => {
                       const cancelado = ag.estado === 'CANCELADO';
                       return (
-                        <TableRow key={ag.id} sx={{ '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.03)' } }}>
-                          <TableCell sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+                        <TableRow key={ag.id} sx={{ '&:hover': { backgroundColor: '#F7F9FA' } }}>
+                          <TableCell sx={{ color: 'text.primary', fontWeight: 600 }}>
                             {ag.veiculoModelo}
-                            <Typography variant="caption" sx={{ display: 'block', color: '#B8BFD1' }}>
+                            <Typography variant="caption" sx={{ display: 'block', color: 'text.secondary' }}>
                               Placa: {ag.veiculoPlaca}
                             </Typography>
                           </TableCell>
 
-                          <TableCell sx={{ color: '#FFFFFF' }}>
+                          <TableCell sx={{ color: 'text.primary' }}>
                             {ag.clienteNome}
-                            <Typography variant="caption" sx={{ display: 'block', color: '#B8BFD1' }}>
+                            <Typography variant="caption" sx={{ display: 'block', color: 'text.secondary' }}>
                               {ag.clienteEmail}
                             </Typography>
                           </TableCell>
 
-                          <TableCell sx={{ color: '#FFFFFF' }}>
+                          <TableCell sx={{ color: 'text.primary' }}>
                             {formatarDataHora(ag.dataHora)}
                           </TableCell>
 
-                          <TableCell sx={{ color: '#B8BFD1' }}>
+                          <TableCell sx={{ color: 'text.secondary' }}>
                             {ag.cnhNumero} ({ag.cnhCategoria})
                           </TableCell>
 
@@ -379,19 +373,18 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                               label={cancelado ? 'Cancelado' : 'Agendado'}
                               size="small"
                               sx={{
-                                borderRadius: 0,
                                 fontWeight: 600,
                                 fontSize: '0.75rem',
-                                backgroundColor: cancelado ? '#78909C' : '#2E7D32',
-                                color: '#FFFFFF',
+                                backgroundColor: cancelado ? '#EEF1F2' : '#E8F4F3',
+                                color: cancelado ? 'text.secondary' : 'success.dark',
                               }}
                             />
                             {cancelado && (
                               <Box sx={{ mt: 1 }}>
-                                <Typography variant="caption" sx={{ display: 'block', color: '#FF8A80' }}>
+                                <Typography variant="caption" sx={{ display: 'block', color: 'error.main' }}>
                                   <strong>Motivo:</strong> {ag.motivoCancelamento}
                                 </Typography>
-                                <Typography variant="caption" sx={{ display: 'block', color: '#B8BFD1' }}>
+                                <Typography variant="caption" sx={{ display: 'block', color: 'text.secondary' }}>
                                   Por: {ag.canceladoPor} em {formatarDataHora(ag.canceladoEm)}
                                 </Typography>
                               </Box>
@@ -405,14 +398,12 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                                 variant="outlined"
                                 onClick={() => abrirDialogCancelar(ag)}
                                 sx={{
-                                  borderRadius: 0,
-                                  borderColor: '#FF8A80',
-                                  color: '#FF8A80',
-                                  textTransform: 'none',
+                                  borderColor: 'error.main',
+                                  color: 'error.main',
                                   fontSize: '0.8rem',
                                   '&:hover': {
-                                    borderColor: '#FF5252',
-                                    backgroundColor: 'rgba(255, 82, 82, 0.08)',
+                                    borderColor: 'error.dark',
+                                    backgroundColor: 'rgba(195, 78, 82, 0.08)',
                                   },
                                 }}
                               >
@@ -440,14 +431,15 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
             noValidate
             sx={{
               backgroundColor: 'background.paper',
-              border: '1px solid #3C4869',
+              border: '1px solid',
+              borderColor: 'divider',
               p: { xs: 2.5, sm: 4 },
               display: 'flex',
               flexDirection: 'column',
               gap: 3,
             }}
           >
-            <Typography component="h2" variant="h6" sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+            <Typography component="h2" variant="h6" sx={{ color: 'text.primary', fontWeight: 600 }}>
               Agendar Novo Test-Drive
             </Typography>
 
@@ -474,7 +466,7 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
               {/* Seleção de Cliente (somente Vendas e Admin) */}
               {!ehCliente && (
                 <FormControl size="small" fullWidth sx={{ gridColumn: { xs: '1', sm: '1 / -1' } }}>
-                  <InputLabel id="campo-cliente-rotulo" sx={{ color: '#B8BFD1' }}>
+                  <InputLabel id="campo-cliente-rotulo">
                     Cliente *
                   </InputLabel>
                   <Select
@@ -482,7 +474,6 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                     value={clienteId}
                     label="Cliente *"
                     onChange={(e) => setClienteId(e.target.value)}
-                    sx={{ borderRadius: 0, color: '#FFF' }}
                   >
                     <MenuItem value="">Selecione um cliente</MenuItem>
                     {clientes.map((c) => (
@@ -496,7 +487,7 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
 
               {/* Seleção de Veículo Disponível */}
               <FormControl size="small" fullWidth>
-                <InputLabel id="campo-veiculo-rotulo" sx={{ color: '#B8BFD1' }}>
+                <InputLabel id="campo-veiculo-rotulo">
                   Veículo Disponível *
                 </InputLabel>
                 <Select
@@ -505,7 +496,6 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                   label="Veículo Disponível *"
                   onChange={(e) => setVeiculoId(e.target.value)}
                   disabled={veiculosDisponiveis.length === 0}
-                  sx={{ borderRadius: 0, color: '#FFF' }}
                 >
                   <MenuItem value="">Selecione um veículo</MenuItem>
                   {veiculosDisponiveis.map((v) => (
@@ -525,7 +515,6 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                 onChange={(e) => setDataHora(e.target.value)}
                 slotProps={{ inputLabel: { shrink: true } }}
                 helperText="Hoje ou data futura"
-                sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
               />
 
               {/* Número da CNH */}
@@ -536,12 +525,11 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                 value={cnhNumero}
                 onChange={(e) => setCnhNumero(e.target.value)}
                 helperText="11 dígitos numéricos"
-                sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
               />
 
               {/* Categoria da CNH */}
               <FormControl size="small" fullWidth>
-                <InputLabel id="campo-cnh-cat-rotulo" sx={{ color: '#B8BFD1' }}>
+                <InputLabel id="campo-cnh-cat-rotulo">
                   Categoria da CNH *
                 </InputLabel>
                 <Select
@@ -549,7 +537,6 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                   value={cnhCategoria}
                   label="Categoria da CNH *"
                   onChange={(e) => setCnhCategoria(e.target.value)}
-                  sx={{ borderRadius: 0, color: '#FFF' }}
                 >
                   <MenuItem value="B">Categoria B</MenuItem>
                   <MenuItem value="C">Categoria C</MenuItem>
@@ -567,26 +554,26 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                 onChange={(e) => setCnhValidade(e.target.value)}
                 slotProps={{ inputLabel: { shrink: true } }}
                 helperText="Não pode estar vencida na data marcada"
-                sx={{ '& input': { color: '#FFF' }, '& .MuiOutlinedInput-root': { borderRadius: 0 } }}
               />
             </Box>
 
             {/* Termo de Responsabilidade */}
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mt: 1 }}>
-              <Typography variant="body2" sx={{ color: '#FFFFFF', fontWeight: 600 }}>
+              <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 600 }}>
                 Termo de Responsabilidade:
               </Typography>
 
               <Box
                 sx={{
                   p: 2,
-                  border: '1px solid #3C4869',
-                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  backgroundColor: '#F7F9FA',
                   maxHeight: 140,
                   overflowY: 'auto',
                 }}
               >
-                <Typography variant="body2" sx={{ color: '#B8BFD1', lineHeight: 1.6 }}>
+                <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
                   {termoTexto || 'Carregando termo de responsabilidade...'}
                 </Typography>
               </Box>
@@ -597,11 +584,11 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                     id="checkbox-termo"
                     checked={aceiteTermo}
                     onChange={(e) => setAceiteTermo(e.target.checked)}
-                    sx={{ color: '#B8BFD1', '&.Mui-checked': { color: '#FFFFFF' } }}
+                    sx={{ color: 'text.secondary', '&.Mui-checked': { color: 'primary.main' } }}
                   />
                 }
                 label={
-                  <Typography variant="body2" sx={{ color: '#FFFFFF' }}>
+                  <Typography variant="body2" sx={{ color: 'text.primary' }}>
                     Declaro que li e aceito eletronicamente o termo de responsabilidade acima. *
                   </Typography>
                 }
@@ -614,15 +601,8 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
                 variant="contained"
                 disabled={salvando || veiculosDisponiveis.length === 0}
                 sx={{
-                  borderRadius: 0,
-                  backgroundColor: '#FFFFFF',
-                  color: '#000000',
-                  fontWeight: 600,
-                  textTransform: 'none',
                   px: 4,
                   py: 1.25,
-                  '&:hover': { backgroundColor: '#E6E8EF' },
-                  '&.Mui-disabled': { backgroundColor: '#B8BFD1', color: '#000' },
                 }}
               >
                 {salvando ? 'Agendando...' : 'Confirmar agendamento'}
@@ -639,9 +619,8 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
         PaperProps={{
           sx: {
             backgroundColor: 'background.paper',
-            border: '1px solid #3C4869',
-            borderRadius: 0,
-            color: '#FFFFFF',
+            border: '1px solid',
+            borderColor: 'divider',
             minWidth: { xs: 300, sm: 480 },
           },
         }}
@@ -654,10 +633,10 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
             </Alert>
           )}
 
-          <Typography variant="body2" sx={{ color: '#B8BFD1' }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Veículo: <strong>{agendamentoSelecionado?.veiculoModelo}</strong> (Placa: {agendamentoSelecionado?.veiculoPlaca})
           </Typography>
-          <Typography variant="body2" sx={{ color: '#B8BFD1' }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Data agendada: <strong>{formatarDataHora(agendamentoSelecionado?.dataHora)}</strong>
           </Typography>
 
@@ -672,8 +651,6 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
             helperText={`${motivoCancelamento.trim().length} de no mínimo 5 caracteres`}
             sx={{
               mt: 1,
-              '& textarea': { color: '#FFF' },
-              '& .MuiOutlinedInput-root': { borderRadius: 0 },
             }}
           />
         </DialogContent>
@@ -683,10 +660,8 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
             onClick={fecharDialogCancelar}
             disabled={cancelando}
             sx={{
-              borderRadius: 0,
-              color: '#FFFFFF',
-              borderColor: '#C9CCD6',
-              textTransform: 'none',
+              color: 'text.primary',
+              borderColor: 'divider',
             }}
           >
             Voltar
@@ -697,13 +672,8 @@ export default function PaginaTestDrive({ sessao, onVoltar }) {
             onClick={handleConfirmarCancelamento}
             disabled={cancelando || motivoCancelamento.trim().length < 5}
             sx={{
-              borderRadius: 0,
-              backgroundColor: '#D32F2F',
-              color: '#FFFFFF',
-              fontWeight: 600,
-              textTransform: 'none',
-              '&:hover': { backgroundColor: '#B71C1C' },
-              '&.Mui-disabled': { backgroundColor: 'rgba(211, 47, 47, 0.4)', color: '#B8BFD1' },
+              backgroundColor: 'error.main',
+              '&:hover': { backgroundColor: 'error.dark' },
             }}
           >
             {cancelando ? 'Cancelando...' : 'Confirmar cancelamento'}

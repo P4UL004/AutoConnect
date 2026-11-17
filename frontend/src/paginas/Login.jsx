@@ -1,39 +1,8 @@
 import { useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { Box, Typography, TextField, Button, Alert } from '@mui/material';
+import { Alert, Box, Button, Paper, TextField, Typography } from '@mui/material';
 import Logo from '../componentes/Logo';
 import { api, guardarSessao } from '../servicos/api';
-
-const fundoDiagonal = `linear-gradient(45deg,
-  #2A3040 0%, #2A3040 14.3%,
-  #000 14.3%, #000 14.7%,
-  #2F3652 14.7%, #2F3652 37.8%,
-  #000 37.8%, #000 38.2%,
-  #1A1C26 38.2%, #1A1C26 61.7%,
-  #000 61.7%, #000 62.1%,
-  #1A1C26 62.1%, #1A1C26 85.2%,
-  #000 85.2%, #000 85.6%,
-  #000 85.6%, #000 100%)`;
-
-// Estilo dos campos: fundo preto, borda clara, cantos retos
-const estiloCampo = {
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: '#000',
-    color: '#FFF',
-    '& fieldset': { borderColor: '#C9CCD6' },
-    '&:hover fieldset': { borderColor: '#FFF' },
-    '&.Mui-focused fieldset': { borderColor: '#FFF', borderWidth: 2 },
-  },
-  '& input': { padding: '15px 16px', fontSize: 14 },
-  '& input::placeholder': { color: '#B8BFD1', opacity: 1 },
-};
-
-// Estilo dos rótulos (EMAIL, SENHA): pequenos, em maiúsculas e com letras espaçadas
-const estiloRotulo = {
-  fontSize: 12,
-  letterSpacing: '0.12em',
-  textTransform: 'uppercase',
-};
 
 export default function Login({ onLoginSucesso }) {
   const [email, setEmail] = useState('');
@@ -83,106 +52,147 @@ export default function Login({ onLoginSucesso }) {
 
   return (
     <Box
+      component="main"
       sx={{
         minHeight: '100vh',
         display: 'grid',
         placeItems: 'center',
-        p: 2,
-        position: 'relative',
-        background: fundoDiagonal,
+        p: { xs: 1.5, sm: 3 },
+        bgcolor: 'background.default',
       }}
     >
-      {/* Logo fixo no canto superior esquerdo */}
-      <Box component="header" sx={{ position: 'absolute', top: 12, left: { xs: 16, sm: 32 } }}>
-        <Logo />
-      </Box>
-
-      <Box
-        component="form"
-        onSubmit={enviar}
-        noValidate
-        sx={{ width: '100%', maxWidth: 300, display: 'grid', gap: 2 }}
+      <Paper
+        elevation={0}
+        sx={{
+          width: '100%',
+          maxWidth: 1000,
+          minHeight: { xs: 'auto', md: 600 },
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '0.9fr 1.1fr' },
+          overflow: 'hidden',
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: { xs: 3, md: 4 },
+          boxShadow: '0 24px 70px rgba(27, 55, 60, 0.09)',
+        }}
       >
-        <Typography component="h1" sx={{ fontFamily: '"DM Sans", sans-serif', fontSize: 20 }}>
-          Entre na sua conta
-        </Typography>
-
-        {mensagemSucesso && !erroGeral && (
-          <Alert severity="success" variant="outlined" role="status">
-            {mensagemSucesso}
-          </Alert>
-        )}
-
-        {erroGeral && (
-          <Alert severity="error" variant="outlined" role="alert">
-            {erroGeral}
-          </Alert>
-        )}
-
-        {/* O rótulo fica fora do campo. O htmlFor liga o rótulo ao campo com o mesmo
-            id, então clicar no texto foca o campo e leitores de tela anunciam certo. */}
-        <Box sx={{ display: 'grid', gap: 1 }}>
-          <Typography component="label" htmlFor="email" sx={estiloRotulo}>
-            Email
-          </Typography>
-          <TextField
-            id="email"
-            type="email"
-            autoComplete="email"
-            placeholder="email@olamundo.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={!!erroEmail}
-            helperText={erroEmail}
-            sx={estiloCampo}
-          />
-        </Box>
-
-        <Box sx={{ display: 'grid', gap: 1 }}>
-          <Typography component="label" htmlFor="senha" sx={estiloRotulo}>
-            Senha
-          </Typography>
-          <TextField
-            id="senha"
-            type="password"
-            autoComplete="current-password"
-            placeholder="******"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            error={!!erroSenha}
-            helperText={erroSenha}
-            sx={estiloCampo}
-          />
-        </Box>
-
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={carregando}
+        <Box
+          component="aside"
           sx={{
-            justifySelf: 'center',
-            width: 170,
-            py: 1.5,
-            mt: 1,
-            backgroundColor: '#FFF',
-            color: '#000',
-            fontWeight: 600,
-            textTransform: 'none',
-            '&:hover': { backgroundColor: '#E6E8EF' },
-            '&.Mui-disabled': { backgroundColor: '#B8BFD1', color: '#000' },
+            minHeight: { xs: 170, md: 'auto' },
+            p: { xs: 3, md: 5 },
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            color: '#FFFFFF',
+            background:
+              'radial-gradient(ellipse at 82% 72%, rgba(80, 175, 166, .30), transparent 38%), linear-gradient(145deg, #12363B 0%, #176B70 100%)',
           }}
         >
-          {carregando ? 'Entrando...' : 'Entrar'}
-        </Button>
+          <Logo color="#FFFFFF" />
+          <Box sx={{ display: { xs: 'none', md: 'block' }, mt: 10, maxWidth: 340 }}>
+            <Typography
+              component="h2"
+              sx={{ fontSize: 36, lineHeight: 1.15, fontWeight: 600, letterSpacing: '-0.04em' }}
+            >
+              Mobilidade e gestão, em um só lugar.
+            </Typography>
+            <Typography sx={{ mt: 2, color: 'rgba(255,255,255,.75)', lineHeight: 1.7 }}>
+              Acesse o seu perfil.
+            </Typography>
+          </Box>
+          <Typography
+            variant="caption"
+            sx={{ display: { xs: 'none', md: 'block' }, color: 'rgba(255,255,255,.58)' }}
+          >
+            AutoConnect · Plataforma de gestão automotiva
+          </Typography>
+        </Box>
 
-        <Button
-          component={RouterLink}
-          to="/cadastro"
-          sx={{ justifySelf: 'center', textTransform: 'none', color: '#FFF' }}
+        <Box
+          sx={{
+            display: 'grid',
+            alignContent: 'center',
+            p: { xs: 3, sm: 5, md: 7 },
+          }}
         >
-          Criar conta
-        </Button>
-      </Box>
+          <Box component="form" onSubmit={enviar} noValidate sx={{ width: '100%', maxWidth: 380, mx: 'auto' }}>
+            <Typography
+              component="h1"
+              sx={{ color: 'text.primary', fontSize: 28, fontWeight: 700, letterSpacing: '-0.04em' }}
+            >
+              Acesse sua conta
+            </Typography>
+            <Typography color="text.secondary" sx={{ mt: 0.75, mb: 3.5 }}>
+              Informe seus dados para continuar.
+            </Typography>
+
+            {mensagemSucesso && !erroGeral && (
+              <Alert severity="success" variant="outlined" role="status" sx={{ mb: 2 }}>
+                {mensagemSucesso}
+              </Alert>
+            )}
+            {erroGeral && (
+              <Alert severity="error" variant="outlined" role="alert" sx={{ mb: 2 }}>
+                {erroGeral}
+              </Alert>
+            )}
+
+            <Box sx={{ display: 'grid', gap: 2.25 }}>
+              <TextField
+                id="email"
+                label="E-mail"
+                type="email"
+                autoComplete="email"
+                placeholder="voce@exemplo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={!!erroEmail}
+                helperText={erroEmail}
+                fullWidth
+              />
+              <TextField
+                id="senha"
+                label="Senha"
+                type="password"
+                autoComplete="current-password"
+                placeholder="Digite sua senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                error={!!erroSenha}
+                helperText={erroSenha}
+                fullWidth
+              />
+            </Box>
+
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={carregando}
+              sx={{ py: 1.35, mt: 3, fontSize: 15 }}
+            >
+              {carregando ? 'Entrando...' : 'Entrar'}
+            </Button>
+
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mt: 2.5, textAlign: 'center' }}
+            >
+              Ainda não tem uma conta?{' '}
+              <Button
+                component={RouterLink}
+                to="/cadastro"
+                variant="text"
+                sx={{ p: 0, minWidth: 'auto', verticalAlign: 'baseline' }}
+              >
+                Criar conta
+              </Button>
+            </Typography>
+          </Box>
+        </Box>
+      </Paper>
     </Box>
   );
 }
