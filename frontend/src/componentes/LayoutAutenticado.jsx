@@ -278,7 +278,17 @@ export default function LayoutAutenticado({ sessao, children }) {
         />
       </Drawer>
 
-      <Box sx={{ display: { xs: 'none', md: 'block' }, flexShrink: 0 }}>
+      <Box
+        sx={{
+          display: { xs: 'none', md: 'block' },
+          flexShrink: 0,
+          position: 'sticky',
+          top: 0,
+          alignSelf: 'flex-start',
+          height: '100vh',
+          zIndex: 2,
+        }}
+      >
         <ConteudoSidebar
           sessao={sessao}
           caminho={location.pathname}

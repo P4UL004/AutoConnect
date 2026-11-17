@@ -55,8 +55,6 @@ function RotasAplicacao() {
     };
   }, [navigate]);
 
-  const voltarParaHome = () => navigate('/');
-
   function aoAutenticar(novaSessao) {
     setSessao(novaSessao || obterSessao());
     navigate('/', { replace: true });
@@ -93,7 +91,7 @@ function RotasAplicacao() {
         path="/inventario"
         element={
           <RotaProtegida sessao={sessao}>
-            <PaginaInventario sessao={sessao} onVoltar={voltarParaHome} />
+            <PaginaInventario sessao={sessao} />
           </RotaProtegida>
         }
       />
@@ -102,7 +100,7 @@ function RotasAplicacao() {
         path="/test-drive"
         element={
           <RotaProtegida sessao={sessao}>
-            <PaginaTestDrive sessao={sessao} onVoltar={voltarParaHome} />
+            <PaginaTestDrive sessao={sessao} />
           </RotaProtegida>
         }
       />
@@ -111,7 +109,7 @@ function RotasAplicacao() {
         path="/ordens-servico"
         element={
           <RotaProtegida sessao={sessao}>
-            <PaginaOrdensServico sessao={sessao} onVoltar={voltarParaHome} />
+            <PaginaOrdensServico sessao={sessao} />
           </RotaProtegida>
         }
       />
@@ -120,7 +118,7 @@ function RotasAplicacao() {
         path="/prototipos/geofencing"
         element={
           <RotaProtegida sessao={sessao}>
-            <PrototipoGeofencing onVoltar={voltarParaHome} />
+            <PrototipoGeofencing />
           </RotaProtegida>
         }
       />
@@ -129,7 +127,7 @@ function RotasAplicacao() {
         path="/prototipos/credito"
         element={
           <RotaProtegida sessao={sessao}>
-            <PrototipoCredito onVoltar={voltarParaHome} />
+            <PrototipoCredito />
           </RotaProtegida>
         }
       />
@@ -138,7 +136,7 @@ function RotasAplicacao() {
         path="/prototipos/diagnostico"
         element={
           <RotaProtegida sessao={sessao}>
-            <PrototipoDiagnostico onVoltar={voltarParaHome} />
+            <PrototipoDiagnostico />
           </RotaProtegida>
         }
       />
@@ -147,7 +145,7 @@ function RotasAplicacao() {
         path="/prototipos/orcamento-remoto"
         element={
           <RotaProtegida sessao={sessao}>
-            <PrototipoOrcamentoRemoto onVoltar={voltarParaHome} />
+            <PrototipoOrcamentoRemoto />
           </RotaProtegida>
         }
       />
@@ -156,7 +154,7 @@ function RotasAplicacao() {
         path="/prototipos/estoque"
         element={
           <RotaProtegida sessao={sessao}>
-            <PrototipoEstoque onVoltar={voltarParaHome} />
+            <PrototipoEstoque />
           </RotaProtegida>
         }
       />
@@ -165,7 +163,7 @@ function RotasAplicacao() {
         path="/prototipos/horas"
         element={
           <RotaProtegida sessao={sessao}>
-            <PrototipoHoras onVoltar={voltarParaHome} />
+            <PrototipoHoras />
           </RotaProtegida>
         }
       />
@@ -174,7 +172,7 @@ function RotasAplicacao() {
         path="/prototipos/painel-bi"
         element={
           <RotaProtegida sessao={sessao}>
-            <PrototipoPainelBI onVoltar={voltarParaHome} />
+            <PrototipoPainelBI />
           </RotaProtegida>
         }
       />

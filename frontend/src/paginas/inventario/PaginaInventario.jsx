@@ -34,7 +34,7 @@ const ESTADOS_VEICULO = [
   { valor: 'VENDIDO', rotulo: 'Vendido' },
 ];
 
-export default function PaginaInventario({ sessao, onVoltar }) {
+export default function PaginaInventario({ sessao }) {
   const [modo, setModo] = useState('lista'); // 'lista' ou 'formulario'
   const [veiculos, setVeiculos] = useState([]);
   const [totalElementos, setTotalElementos] = useState(0);
@@ -226,13 +226,6 @@ export default function PaginaInventario({ sessao, onVoltar }) {
     return (
       <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default', p: 4 }}>
         <Container maxWidth="md">
-          <Button
-            variant="outlined"
-            onClick={onVoltar}
-            sx={{ mb: 3 }}
-          >
-            Voltar
-          </Button>
           <Alert severity="error" variant="outlined">
             Acesso negado.
           </Alert>
@@ -275,29 +268,27 @@ export default function PaginaInventario({ sessao, onVoltar }) {
             Inventário de Veículos
           </Typography>
 
-          <Button
-            variant="outlined"
-            onClick={
-              modo === 'formulario'
-                ? () => {
-                    setCarregandoLista(true);
-                    setModo('lista');
-                    setVersaoLista((v) => v + 1);
-                  }
-                : onVoltar
-            }
-            sx={{
-              color: 'primary.main',
-              borderColor: 'divider',
-              fontWeight: 600,
-              '&:hover': {
-                borderColor: 'primary.main',
-                backgroundColor: 'primary.light',
-              },
-            }}
-          >
-            {modo === 'formulario' ? 'Voltar para Lista' : 'Voltar para a Home'}
-          </Button>
+          {modo === 'formulario' && (
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setCarregandoLista(true);
+                setModo('lista');
+                setVersaoLista((v) => v + 1);
+              }}
+              sx={{
+                color: 'primary.main',
+                borderColor: 'divider',
+                fontWeight: 600,
+                '&:hover': {
+                  borderColor: 'primary.main',
+                  backgroundColor: 'primary.light',
+                },
+              }}
+            >
+              Voltar para Lista
+            </Button>
+          )}
         </Box>
       </Box>
 

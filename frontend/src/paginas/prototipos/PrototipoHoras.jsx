@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -33,8 +32,7 @@ function calcularEficiencia(horasPadrao, segundosReais) {
   return (horasPadrao / horasReais) * 100;
 }
 
-export default function PrototipoHoras({ onVoltar }) {
-  const navigate = useNavigate();
+export default function PrototipoHoras() {
   const [tarefas, setTarefas] = useState(TAREFAS_INICIAIS_HORAS);
 
   useEffect(() => {
@@ -66,14 +64,6 @@ export default function PrototipoHoras({ onVoltar }) {
   const totalHorasReais = totalSegundosReais / 3600;
   const eficienciaGeral = calcularEficiencia(totalHorasPadrao, totalSegundosReais);
 
-  function voltar() {
-    if (typeof onVoltar === 'function') {
-      onVoltar();
-    } else {
-      navigate('/');
-    }
-  }
-
   return (
     <Box component="main" sx={{ ...ESTILO_FUNDO_LISTRAS, p: { xs: 2, sm: 3, md: 4 } }}>
       <Box sx={{ maxWidth: 1060, mx: 'auto' }}>
@@ -93,9 +83,6 @@ export default function PrototipoHoras({ onVoltar }) {
               {OS_APONTAMENTO_EXEMPLO.tecnico}
             </Typography>
           </Box>
-          <Button variant="outlined" onClick={voltar}>
-            Voltar para Home
-          </Button>
         </Stack>
 
 

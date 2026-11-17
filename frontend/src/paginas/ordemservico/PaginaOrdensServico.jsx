@@ -406,7 +406,7 @@ function DetalheOsDialog({ id, ehCliente, aoFechar, aoMudar, aoAvisar }) {
 /* ------------------------------------------------------------------ */
 /* Pagina                                                             */
 /* ------------------------------------------------------------------ */
-export default function PaginaOrdensServico({ sessao, onVoltar }) {
+export default function PaginaOrdensServico({ sessao }) {
   const perfil = sessao?.perfil || obterSessao()?.perfil || '';
   const ehCliente = perfil === 'CLIENTE';
 
@@ -456,13 +456,10 @@ export default function PaginaOrdensServico({ sessao, onVoltar }) {
 
   return (
     <Box sx={{ p: { xs: 2, md: 4 }, maxWidth: 1200, mx: 'auto' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, gap: 2, flexWrap: 'wrap' }}>
+      <Box sx={{ mb: 3 }}>
         <Typography component="h1" variant="h5">
           Ordens de Serviço
         </Typography>
-        <Button variant="outlined" onClick={onVoltar}>
-          Voltar para a Home
-        </Button>
       </Box>
 
       <Box sx={{ display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap', alignItems: 'center' }}>

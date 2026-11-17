@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -34,8 +33,7 @@ function corCriticidade(criticidade) {
   return 'default';
 }
 
-export default function PrototipoDiagnostico({ onVoltar }) {
-  const navigate = useNavigate();
+export default function PrototipoDiagnostico() {
   const [pacotes, setPacotes] = useState(PACOTES_INICIAIS_OBD);
   const [logPush, setLogPush] = useState([
     {
@@ -69,14 +67,6 @@ export default function PrototipoDiagnostico({ onVoltar }) {
     }
   }
 
-  function voltar() {
-    if (typeof onVoltar === 'function') {
-      onVoltar();
-    } else {
-      navigate('/');
-    }
-  }
-
   return (
     <Box component="main" sx={{ ...ESTILO_FUNDO_LISTRAS, p: { xs: 2, sm: 3, md: 4 } }}>
       <Box sx={{ maxWidth: 1140, mx: 'auto' }}>
@@ -98,9 +88,6 @@ export default function PrototipoDiagnostico({ onVoltar }) {
           <Stack direction="row" spacing={1.5}>
             <Button variant="contained" onClick={handleSimularPacote}>
               Simular novo pacote
-            </Button>
-            <Button variant="outlined" onClick={voltar}>
-              Voltar para Home
             </Button>
           </Stack>
         </Stack>

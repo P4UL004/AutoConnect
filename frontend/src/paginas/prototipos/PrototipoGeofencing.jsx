@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Alert,
   Box,
@@ -52,8 +51,7 @@ function calcularDistanciaPx(ponto) {
   return Math.hypot(dx, dy);
 }
 
-export default function PrototipoGeofencing({ onVoltar }) {
-  const navigate = useNavigate();
+export default function PrototipoGeofencing() {
   const [indiceRota, setIndiceRota] = useState(0);
   const [posicaoManual, setPosicaoManual] = useState(null);
   const audioCtxRef = useRef(null);
@@ -103,14 +101,6 @@ export default function PrototipoGeofencing({ onVoltar }) {
     setIndiceRota(0);
   }
 
-  function voltar() {
-    if (typeof onVoltar === 'function') {
-      onVoltar();
-    } else {
-      navigate('/');
-    }
-  }
-
   const motivosAlerta = [];
   if (foraDaCerca) {
     motivosAlerta.push(
@@ -141,9 +131,6 @@ export default function PrototipoGeofencing({ onVoltar }) {
               {CONFIG_GEOFENCING.veiculo} • {CONFIG_GEOFENCING.condutor}
             </Typography>
           </Box>
-          <Button variant="outlined" onClick={voltar}>
-            Voltar para Home
-          </Button>
         </Stack>
 
 

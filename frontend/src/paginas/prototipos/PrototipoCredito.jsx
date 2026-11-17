@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Alert,
   Box,
@@ -60,8 +59,7 @@ function formatarMoeda(valor) {
   });
 }
 
-export default function PrototipoCredito({ onVoltar }) {
-  const navigate = useNavigate();
+export default function PrototipoCredito() {
   const [cpf, setCpf] = useState(VALORES_INICIAIS_CREDITO.cpf);
   const [renda, setRenda] = useState(VALORES_INICIAIS_CREDITO.renda);
   const [valorVeiculo, setValorVeiculo] = useState(VALORES_INICIAIS_CREDITO.valorVeiculo);
@@ -139,14 +137,6 @@ export default function PrototipoCredito({ onVoltar }) {
     }, 2000);
   }
 
-  function voltar() {
-    if (typeof onVoltar === 'function') {
-      onVoltar();
-    } else {
-      navigate('/');
-    }
-  }
-
   return (
     <Box component="main" sx={{ ...ESTILO_FUNDO_LISTRAS, p: { xs: 2, sm: 3, md: 4 } }}>
       <Box sx={{ maxWidth: 960, mx: 'auto' }}>
@@ -165,9 +155,6 @@ export default function PrototipoCredito({ onVoltar }) {
               Validação cadastral no cliente e cálculo de parcelas pela Tabela Price
             </Typography>
           </Box>
-          <Button variant="outlined" onClick={voltar}>
-            Voltar para Home
-          </Button>
         </Stack>
 
 

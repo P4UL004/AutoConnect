@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Alert,
   Box,
@@ -40,8 +39,7 @@ function formatarMoeda(valor) {
   });
 }
 
-export default function PrototipoOrcamentoRemoto({ onVoltar }) {
-  const navigate = useNavigate();
+export default function PrototipoOrcamentoRemoto() {
   const [aba, setAba] = useState(0);
   const [itens, setItens] = useState(ITENS_INICIAIS_ORCAMENTO);
   const [linkGerado, setLinkGerado] = useState('');
@@ -79,14 +77,6 @@ export default function PrototipoOrcamentoRemoto({ onVoltar }) {
     .filter((item) => item.status === 'REJEITADO')
     .reduce((acc, item) => acc + item.valor, 0);
 
-  function voltar() {
-    if (typeof onVoltar === 'function') {
-      onVoltar();
-    } else {
-      navigate('/');
-    }
-  }
-
   return (
     <Box component="main" sx={{ ...ESTILO_FUNDO_LISTRAS, p: { xs: 2, sm: 3, md: 4 } }}>
       <Box sx={{ maxWidth: 1020, mx: 'auto' }}>
@@ -105,9 +95,6 @@ export default function PrototipoOrcamentoRemoto({ onVoltar }) {
               {OS_ORCAMENTO_EXEMPLO.numero} • {OS_ORCAMENTO_EXEMPLO.veiculo}
             </Typography>
           </Box>
-          <Button variant="outlined" onClick={voltar}>
-            Voltar para Home
-          </Button>
         </Stack>
 
 

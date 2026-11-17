@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   Alert,
   Box,
@@ -22,8 +21,7 @@ import {
 import { PECAS_INICIAIS_ESTOQUE } from '../../dados/dadosEstoque';
 import { ESTILO_FUNDO_LISTRAS } from '../Home';
 
-export default function PrototipoEstoque({ onVoltar }) {
-  const navigate = useNavigate();
+export default function PrototipoEstoque() {
   const [pecas, setPecas] = useState(PECAS_INICIAIS_ESTOQUE);
   const [solicitacoesCompra, setSolicitacoesCompra] = useState([]);
   const [mensagemAcao, setMensagemAcao] = useState('');
@@ -89,14 +87,6 @@ export default function PrototipoEstoque({ onVoltar }) {
     setMensagemAcao('Estoque restaurado para os saldos iniciais.');
   }
 
-  function voltar() {
-    if (typeof onVoltar === 'function') {
-      onVoltar();
-    } else {
-      navigate('/');
-    }
-  }
-
   return (
     <Box component="main" sx={{ ...ESTILO_FUNDO_LISTRAS, p: { xs: 2, sm: 3, md: 4 } }}>
       <Box sx={{ maxWidth: 1120, mx: 'auto' }}>
@@ -115,9 +105,6 @@ export default function PrototipoEstoque({ onVoltar }) {
               Reserva automática em orçamento, baixa na finalização e gatilho de compra
             </Typography>
           </Box>
-          <Button variant="outlined" onClick={voltar}>
-            Voltar para Home
-          </Button>
         </Stack>
 
 

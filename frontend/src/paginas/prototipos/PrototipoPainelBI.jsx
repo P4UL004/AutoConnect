@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -28,8 +27,7 @@ function formatarMoeda(valor) {
   });
 }
 
-export default function PrototipoPainelBI({ onVoltar }) {
-  const navigate = useNavigate();
+export default function PrototipoPainelBI() {
 
   function handleExportarCsv() {
     const cabecalho = [
@@ -73,14 +71,6 @@ export default function PrototipoPainelBI({ onVoltar }) {
 
   function handleExportarPdf() {
     window.print();
-  }
-
-  function voltar() {
-    if (typeof onVoltar === 'function') {
-      onVoltar();
-    } else {
-      navigate('/');
-    }
   }
 
   const cards = [
@@ -147,9 +137,6 @@ export default function PrototipoPainelBI({ onVoltar }) {
             </Button>
             <Button variant="outlined" onClick={handleExportarPdf}>
               Exportar PDF
-            </Button>
-            <Button variant="outlined" color="inherit" onClick={voltar}>
-              Voltar para Home
             </Button>
           </Stack>
         </Stack>
